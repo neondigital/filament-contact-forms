@@ -18,9 +18,9 @@ use VendorName\Skeleton\Testing\TestsSkeleton;
 
 class ContactFormsServiceProvider extends PackageServiceProvider
 {
-    public static string $name = 'contact-forms';
+    public static string $name = 'filament-contact-forms';
 
-    public static string $viewNamespace = 'contact-forms';
+    public static string $viewNamespace = 'filament-contact-forms';
 
     public function configurePackage(Package $package): void
     {
@@ -58,10 +58,14 @@ class ContactFormsServiceProvider extends PackageServiceProvider
         //        }
     }
 
-    //    public function packageRegistered(): void
-    //    {
-    //    }
-    //
+    public function packageRegistered(): void
+    {
+        $this->app->scoped('contact-form', function (): ContactFormManager {
+            return new ContactFormManager();
+        });
+
+    }
+
     //    public function packageBooted(): void
     //    {
     //        // Asset Registration
@@ -90,12 +94,12 @@ class ContactFormsServiceProvider extends PackageServiceProvider
     //        // Testing
     //        Testable::mixin(new TestsSkeleton());
     //    }
-    //
-    //    protected function getAssetPackageName(): ?string
-    //    {
-    //        return 'neondigital/contact-forms';
-    //    }
-    //
+
+    protected function getAssetPackageName(): ?string
+    {
+        return 'neondigital/filament-contact-forms';
+    }
+
     //    /**
     //     * @return array<Asset>
     //     */

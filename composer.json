@@ -65,7 +65,7 @@
                 "NeonDigital\\ContactForms\\ContactFormsServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "NeonDigital\\ContactForms\\Facades\\Form"
+                "Skeleton": "NeonDigital\\ContactForms\\Facades\\ContactForm"
             }
         }
     },

@@ -28,42 +28,46 @@ Simple example
 ```php
 use NeonDigital\ContactForms\Facades\ContactForm;
 
-ContactForm::make('catalog_request')
-    ->schema([
-        // Filament Fields / Layouts
-        TextInput::make('name')->label('Full Name')->minLength(2)->required(),
-    ])
-    ->mailable(CatalogMailable::class)
-    ->recipients([
-        'one@test.com',
-    ]);
+ContactForm::register(
+    Form::make('catalog_request')
+        ->schema([
+            // Filament Fields / Layouts
+            TextInput::make('name')->label('Full Name')->minLength(2)->required(),
+        ])
+        ->mailable(CatalogMailable::class)
+        ->recipients([
+            'one@test.com',
+        ])
+);
 ``` 
 
 Advanced example   
 ```php
 use NeonDigital\ContactForms\Facades\ContactForm;
 
-ContactForm::register('catalog_request')
-    ->schema([
-        // Filament Fields / Layouts
-        TextInput::make('name')->label('Full Name')->minLength(2)->required(),
-    ])
-    ->mailable(CatalogMailable::class)
-    ->recipients([
-        'one@test.com',
-        'two@test.com',
-    ])
-    ->cc([
-        'three@test.com',
-        'four@test.com',
-    ])
-    ->bcc([
-        'five@test.com',
-        'six@test.com',
-    ])
-    ->loopRecipients(false) // avoids the CC/BCC getting spammed!
-    ->mailer('postmark')
-    ->queue(true);
+ContactForm::register(
+    Form::make('catalog_request')
+        ->schema([
+            // Filament Fields / Layouts
+            TextInput::make('name')->label('Full Name')->minLength(2)->required(),
+        ])
+        ->mailable(CatalogMailable::class)
+        ->recipients([
+            'one@test.com',
+            'two@test.com',
+        ])
+        ->cc([
+            'three@test.com',
+            'four@test.com',
+        ])
+        ->bcc([
+            'five@test.com',
+            'six@test.com',
+        ])
+        ->loopRecipients(false) // avoids the CC/BCC getting spammed!
+        ->mailer('postmark')
+        ->queue(true)
+);
 ```
 
 Saves submissions to a `contact_form_submissions` table.
