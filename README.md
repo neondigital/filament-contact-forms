@@ -1,3 +1,6 @@
+> [!WARNING]
+> This plugin is still in development and may not work correctly.
+
 # Filament Contact Forms
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/:vendor_slug/:package_slug.svg?style=flat-square)](https://packagist.org/packages/:vendor_slug/:package_slug)
