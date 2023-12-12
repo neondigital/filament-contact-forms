@@ -73,14 +73,15 @@ ContactForm::register(
 );
 ```
 
-Saves submissions to a `contact_form_submissions` table.
-
-
-Manually save submissions (if not using Livewire).
+Submit form
 ```php
 use NeonDigital\ContactForms\Facades\ContactForm;
 
-ContactForm::submit('catalog_request', $data);
+ContactForm::get('catalog_request')
+    ->validation([
+        'g-recaptcha-response' => 'required',
+    ])
+    ->submit($request);
 ```
 
 ## Testing
