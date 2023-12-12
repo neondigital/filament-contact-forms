@@ -5,6 +5,7 @@ namespace NeonDigital\ContactForms\FieldTypes;
 abstract class Field
 {
     use Concerns\HasLabel;
+    use Concerns\HasWidth;
 
     protected string $name;
 

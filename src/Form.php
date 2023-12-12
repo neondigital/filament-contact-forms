@@ -4,6 +4,7 @@ namespace NeonDigital\ContactForms;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use \NeonDigital\ContactForms\FieldTypes\Section;
 
 class Form
 {
@@ -70,7 +71,7 @@ class Form
         // TODO: Save to DB
 
         // Send mailable
-        $this->sendMail($request->only($this->getNames()));
+        $this->sendMail($request->all());
     }
 
     protected function getValidationRules(): array
@@ -78,7 +79,13 @@ class Form
         $rules = [];
 
         foreach ($this->getSchema() as $field) {
-            $rules[$field->getName()] = $field->getValidation();
+            if ($field instanceof Section) {
+                foreach ($field->getSchema() as $field2) {
+                    $rules[$field2->getName()] = $field2->getValidation();
+                }
+            } else {
+                $rules[$field->getName()] = $field->getValidation();
+            }
         }
 
         return array_merge($rules, $this->validation);
