@@ -6,5 +6,7 @@ use NeonDigital\ContactForms\Concerns\HasValidation;
 
 class TextInput extends Field
 {
+    use Concerns\HasDefault;
+    use Concerns\HasType;
     use HasValidation;
 }
