@@ -2,24 +2,32 @@
 
 namespace NeonDigital\ContactForms;
 
-use Filament\Forms\Concerns\CanBeValidated;
-use Filament\Forms\Concerns\HasComponents;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class Form
 {
-    use CanBeValidated;
-    use HasComponents;
+    use Concerns\HasSchema;
+    use Concerns\HasValidation;
 
     protected string $handle;
 
     protected string $mailableClass;
 
     protected array $recipients = [];
-    //    protected array $cc = [];
-    //    protected array $bcc = [];
-    //    protected bool $loopRecipients = true;
-    //    protected string $mailer = 'default';
-    //    protected bool $queue = false;
+
+    //    TODO: protected array $cc = [];
+    //    TODO: protected array $bcc = [];
+    //    TODO: protected bool $loopRecipients = true;
+    //    TODO: protected string $mailer = 'default';
+    //    TODO: protected bool $queue = false;
+
+    public ?array $data = [];
+
+    public function mount(): void
+    {
+        $this->form->fill();
+    }
 
     public static function make(string $handle): static
     {
@@ -52,5 +60,33 @@ class Form
         $this->recipients = $recipients;
 
         return $this;
+    }
+
+    public function submit(Request $request)
+    {
+        // Validate
+        $request->validate($this->getValidationRules());
+
+        // TODO: Save to DB
+
+        // Send mailable
+        $this->sendMail($request->only($this->getNames()));
+    }
+
+    protected function getValidationRules(): array
+    {
+        $rules = [];
+
+        foreach ($this->getSchema() as $field) {
+            $rules[$field->getName()] = $field->getValidation();
+        }
+
+        return array_merge($rules, $this->validation);
+    }
+
+    protected function sendMail(array $data)
+    {
+        Mail::to($this->recipients)
+            ->send(new $this->mailableClass($data));
     }
 }

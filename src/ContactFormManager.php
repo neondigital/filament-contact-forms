@@ -14,8 +14,13 @@ class ContactFormManager
         //$form->register();
     }
 
-    public function getForms()
+    public function getForms(): array
     {
         return $this->forms;
+    }
+
+    public function get(string $handle): Form
+    {
+        return $this->forms[$handle];
     }
 }
