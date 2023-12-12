@@ -4,7 +4,7 @@ namespace NeonDigital\ContactForms;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use \NeonDigital\ContactForms\FieldTypes\Section;
+use NeonDigital\ContactForms\FieldTypes\Section;
 
 class Form
 {
